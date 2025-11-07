@@ -1,0 +1,25 @@
+'@startuml
+autonumber
+
+actor Aluno
+
+participant "HistoryPage" as Page
+participant "GetCourseHistoryUseCase" as UseCase
+participant "AlunoDisciplinaRepository" as Repo
+
+Aluno -> Page: Acessa a tela de histórico
+Page -> UseCase: call(codigoAluno)
+activate UseCase
+
+UseCase -> Repo: findHistoryByAluno(codigoAluno)
+activate Repo
+
+Repo --> UseCase: Retorna Map<DisciplinaEntity, AlunoDisciplinaEntity>
+deactivate Repo
+
+UseCase --> Page: Retorna o histórico
+deactivate UseCase
+
+Page -> Aluno: Exibe a lista de disciplinas cursadas e notas
+
+@enduml'

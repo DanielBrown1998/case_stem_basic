@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+
+actor Aluno
+
+rectangle "Sistema Acadêmico" {
+  Aluno -- (Fazer Login)
+  Aluno -- (Visualizar Média Geral)
+  Aluno -- (Consultar Histórico de Notas)
+  Aluno -- (Verificar Disciplinas em Andamento)
+  Aluno -- (Consultar Próximas Provas)
+}
+
+@enduml

@@ -1,0 +1,65 @@
+
+package "Entidades" {
+  class AlunoEntity {
+    +matricula: String
+    +firstName: String
+    +lastName: String
+    +email: String
+  }
+
+  class DisciplinaEntity {
+    +code: String
+    +name: String
+    +credit: int
+  }
+
+  class ExameEntity {
+    +type: ExamTypes
+    +codigoDisciplina: String
+    +dataExame: String
+  }
+
+  class AlunoDisciplinaEntity {
+    +codigoAluno: String
+    +codigoDisciplina: String
+    +firstExame: ExameEntity
+    +secondExame: ExameEntity
+    +exameFinal: ExameEntity
+  }
+}
+
+package "Casos de Uso" {
+  class LoginUseCase {
+    +call(matricula, password): Future<AlunoEntity>
+  }
+
+  class GetOverallAverageUseCase {
+    +call(codigoAluno): Future<double>
+  }
+
+  class GetCourseHistoryUseCase {
+    +call(codigoAluno): Future<Map<DisciplinaEntity, AlunoDisciplinaEntity>>
+  }
+
+  class GetCurrentCoursesUseCase {
+    +call(codigoAluno): Future<List<DisciplinaEntity>>
+  }
+
+  class GetUpcomingExamsUseCase {
+    +call(codigoAluno): Future<List<ExameEntity>>
+  }
+}
+
+
+AlunoEntity "1" -- "0..*" AlunoDisciplinaEntity
+DisciplinaEntity "1" -- "0..*" AlunoDisciplinaEntity
+AlunoDisciplinaEntity "1" -- "0..3" ExameEntity
+
+LoginUseCase .> AlunoEntity : "retorna"
+GetOverallAverageUseCase .> AlunoDisciplinaEntity : "usa"
+GetCourseHistoryUseCase .> AlunoDisciplinaEntity : "usa"
+GetCourseHistoryUseCase .> DisciplinaEntity : "usa"
+GetCurrentCoursesUseCase .> DisciplinaEntity : "usa"
+GetUpcomingExamsUseCase .> ExameEntity : "usa"
+
+@enduml'

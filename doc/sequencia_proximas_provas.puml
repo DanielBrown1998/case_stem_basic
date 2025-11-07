@@ -1,0 +1,25 @@
+'@startuml
+autonumber
+
+actor Aluno
+
+participant "HomePage" as Page
+participant "GetUpcomingExamsUseCase" as UseCase
+participant "ExameRepository" as Repo
+
+Aluno -> Page: Acessa a tela inicial
+Page -> UseCase: call(codigoAluno)
+activate UseCase
+
+UseCase -> Repo: findUpcomingByAluno(codigoAluno)
+activate Repo
+
+Repo --> UseCase: Retorna List<ExameEntity>
+deactivate Repo
+
+UseCase --> Page: Retorna a lista de exames
+deactivate UseCase
+
+Page -> Aluno: Exibe as próximas provas
+
+@enduml'

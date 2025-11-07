@@ -1,0 +1,25 @@
+'@startuml
+autonumber
+
+actor Aluno
+
+participant "HomePage" as Page
+participant "GetCurrentCoursesUseCase" as UseCase
+participant "DisciplinaRepository" as Repo
+
+Aluno -> Page: Acessa a tela inicial
+Page -> UseCase: call(codigoAluno)
+activate UseCase
+
+UseCase -> Repo: findCurrentByAluno(codigoAluno)
+activate Repo
+
+Repo --> UseCase: Retorna List<DisciplinaEntity>
+deactivate Repo
+
+UseCase --> Page: Retorna a lista de disciplinas
+deactivate UseCase
+
+Page -> Aluno: Exibe as disciplinas em andamento
+
+@enduml'

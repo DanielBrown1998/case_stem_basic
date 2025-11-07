@@ -1,0 +1,35 @@
+@startuml
+
+class AlunoEntity {
+  +matricula: String
+  +firstName: String
+  +lastName: String
+  +email: String
+}
+
+class DisciplinaEntity {
+  +code: String
+  +name: String
+  +credit: int
+}
+
+class ExameEntity {
+  +type: ExamTypes
+  +codigoDisciplina: String
+  +dataExame: String
+}
+
+class AlunoDisciplinaEntity {
+  +codigoAluno: String
+  +codigoDisciplina: String
+  +firstExame: ExameEntity
+  +secondExame: ExameEntity
+  +exameFinal: ExameEntity
+  +status: ClassTypes
+}
+
+AlunoEntity "1" -- "0..*" AlunoDisciplinaEntity : tem
+DisciplinaEntity "1" -- "0..*" AlunoDisciplinaEntity : contém
+AlunoDisciplinaEntity "1" -- "0..3" ExameEntity : realiza
+
+@enduml

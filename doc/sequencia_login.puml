@@ -1,0 +1,26 @@
+'@startuml
+autonumber
+
+actor Aluno
+
+participant "LoginPage" as Page
+participant "LoginUseCase" as UseCase
+participant "AuthRepository" as Repo
+
+Aluno -> Page: Digita matrícula e senha
+Page -> Page: Valida campos
+Page -> UseCase: call(matricula, senha)
+activate UseCase
+
+UseCase -> Repo: findByMatricula(matricula, senha)
+activate Repo
+
+Repo --> UseCase: Retorna AlunoEntity
+deactivate Repo
+
+UseCase --> Page: Retorna AlunoEntity
+deactivate UseCase
+
+Page -> Aluno: Exibe tela principal
+
+@enduml'

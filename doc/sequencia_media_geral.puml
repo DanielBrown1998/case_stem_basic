@@ -1,0 +1,27 @@
+'@startuml
+autonumber
+
+actor Aluno
+
+participant "HomePage" as Page
+participant "GetOverallAverageUseCase" as UseCase
+participant "AlunoDisciplinaRepository" as Repo
+
+Aluno -> Page: Acessa a tela inicial
+Page -> UseCase: call(codigoAluno)
+activate UseCase
+
+UseCase -> Repo: findAllByAluno(codigoAluno)
+activate Repo
+
+Repo --> UseCase: Retorna lista de AlunoDisciplinaEntity
+deactivate Repo
+
+UseCase -> UseCase: Calcula a média geral
+
+UseCase --> Page: Retorna a média (double)
+deactivate UseCase
+
+Page -> Aluno: Exibe a média geral
+
+@enduml'
